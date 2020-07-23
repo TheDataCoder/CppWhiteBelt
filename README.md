@@ -1,140 +1,148 @@
-# Welcome to GitHub
+#### Задание по программированию: Финальная задача курса ####
 
-Welcome to GitHub—where millions of developers work together on software. Ready to get started? Let’s learn how this all works by building and publishing your first GitHub Pages website!
+Необходимо написать программу на С++, которая реализует работу с простой базой данных (сокращённо «БД»). Программа будет общаться с пользователем через стандартный ввод и вывод (потоки *stdin* и *stdout*).
 
-## Repositories
+Будем хранить в нашей БД пары вида: дата, событие. Определим дату как строку вида *Год-Месяц-День*, где *Год*, *Месяц* и *День* — целые числа.
 
-Right now, we’re in your first GitHub **repository**. A repository is like a folder or storage space for your project. Your project's repository contains all its files such as code, documentation, images, and more. It also tracks every change that you—or your collaborators—make to each file, so you can always go back to previous versions of your project if you make any mistakes.
+Событие определим как строку из произвольных печатных символов без разделителей внутри (пробелов, табуляций и пр.). Событие не может быть пустой строкой. В одну и ту же дату может произойти много разных событий, БД должна суметь их все сохранить. Одинаковые события, произошедшие в один и тот же день, сохранять не нужно: достаточно сохранить только одно из них.
 
-This repository contains three important files: The HTML code for your first website on GitHub, the CSS stylesheet that decorates your website with colors and fonts, and the **README** file. It also contains an image folder, with one image file.
+Наша БД должна понимать определённые команды, чтобы с ней можно было взаимодействовать:
 
-## Describe your project
-
-You are currently viewing your project's **README** file. **_README_** files are like cover pages or elevator pitches for your project. They are written in plain text or [Markdown language](https://guides.github.com/features/mastering-markdown/), and usually include a paragraph describing the project, directions on how to use it, who authored it, and more.
-
-[Learn more about READMEs](https://help.github.com/en/articles/about-readmes)
-
-## Your first website
-
-**GitHub Pages** is a free and easy way to create a website using the code that lives in your GitHub repositories. You can use GitHub Pages to build a portfolio of your work, create a personal website, or share a fun project that you coded with the world. GitHub Pages is automatically enabled in this repository, but when you create new repositories in the future, the steps to launch a GitHub Pages website will be slightly different.
-
-[Learn more about GitHub Pages](https://pages.github.com/)
-
-## Rename this repository to publish your site
-
-We've already set-up a GitHub Pages website for you, based on your personal username. This repository is called `hello-world`, but you'll rename it to: `username.github.io`, to match your website's URL address. If the first part of the repository doesn’t exactly match your username, it won’t work, so make sure to get it right.
-
-Let's get started! To update this repository’s name, click the `Settings` tab on this page. This will take you to your repository’s settings page. 
-
-![repo-settings-image](https://user-images.githubusercontent.com/18093541/63130482-99e6ad80-bf88-11e9-99a1-d3cf1660b47e.png)
-
-Under the **Repository Name** heading, type: `username.github.io`, where username is your username on GitHub. Then click **Rename**—and that’s it. When you’re done, click your repository name or browser’s back button to return to this page.
-
-<img width="1039" alt="rename_screenshot" src="https://user-images.githubusercontent.com/18093541/63129466-956cc580-bf85-11e9-92d8-b028dd483fa5.png">
-
-Once you click **Rename**, your website will automatically be published at: https://your-username.github.io/. The HTML file—called `index.html`—is rendered as the home page and you'll be making changes to this file in the next step.
-
-Congratulations! You just launched your first GitHub Pages website. It's now live to share with the entire world
-
-## Making your first edit
-
-When you make any change to any file in your project, you’re making a **commit**. If you fix a typo, update a filename, or edit your code, you can add it to GitHub as a commit. Your commits represent your project’s entire history—and they’re all saved in your project’s repository.
-
-With each commit, you have the opportunity to write a **commit message**, a short, meaningful comment describing the change you’re making to a file. So you always know exactly what changed, no matter when you return to a commit.
-
-## Practice: Customize your first GitHub website by writing HTML code
-
-Want to edit the site you just published? Let’s practice commits by introducing yourself in your `index.html` file. Don’t worry about getting it right the first time—you can always build on your introduction later.
-
-Let’s start with this template:
-
+```objectivec
+- добавление события:                        Add Дата Событие
+- удаление события:                          Del Дата Событие
+- удаление всех событий за конкретную дату:  Del Дата
+- поиск событий за конкретную дату:          Find Дата
+- печать всех событий за все даты:           Print
 ```
-<p>Hello World! I’m [username]. This is my website!</p>
+Все команды, даты и события при вводе разделены пробелами. Команды считываются из стандартного ввода. В одной строке может быть ровно одна команда, но можно ввести несколько команд в несколько строк. На вход также могут поступать пустые строки — их следует игнорировать и продолжать обработку новых команд в последующих строках.
+
+##### Добавление события (Add *Дата* *Событие*) #####
+При добавлении события БД должна его запомнить и затем показывать его при поиске (командой Find) или печати (командой Print). Если указанное событие для данной даты уже существует, повторное его добавление нужно игнорировать. В случае корректного ввода (см. раздел «Обработка ошибок ввода») программа ничего не должна выводить на экран.
+
+##### Удаление события (Del *Дата* *Событие*) #####
+Команда должна удалить добавленное ранее событие с указанным именем в указанную дату, если оно существует. Если событие найдено и удалено, программа должна вывести строку «Deleted successfully» (без кавычек). Если событие в указанную дату не найдено, программа должна вывести строку «Event not found» (без кавычек).
+
+##### Удаление нескольких событий (Del *Дата*) #####
+Команда удаляет все ранее добавленные события за указанную дату. Программа всегда должна выводить строку вида «Deleted N events», где N — это количество всех найденных и удалённых событий. N может быть равно нулю, если в указанную дату не было ни одного события.
+
+##### Поиск событий (Find *Дата*) #####
+Найти и распечатать ранее добавленные события в указанную дату. Программа должна вывести на печать только сами события, по одному на строке. События должны быть отсортированы по возрастанию в порядке сравнения строк между собой (тип string).
+
+##### Печать всех событий (Print) #####
+С помощью этой команды можно показать полное содержимое нашей БД. Программа должна вывести на печать все пары Дата Событие по одной на строке. Все пары должны быть отсортированы по дате, а события в рамках одной даты должны быть отсортированы по возрастанию в порядке сравнения строк между собой (тип string). Даты должны быть отформатированы специальным образом: *ГГГГ-ММ-ДД*, где *Г*, *М*, *Д* — это цифры чисел года, месяца и дня соответственно. Если какое-то число имеет меньше разрядов, то оно должно дополняться нулями, например, 0001-01-01 — первое января первого года. Вам не понадобится выводить дату с отрицательным значением года.
+
+##### Обработка ошибок ввода #####
+Если пользователь ввёл неизвестную команду, то программа должна об этом сообщить, выведя строку *«Unknown command: COMMAND»*, где *COMMAND* — это та команда, которую ввёл пользователь. Командой считается первое слово в строке (до пробела).
+
+Если дата не соответствует формату *Год-Месяц-День*, где *Год*, *Месяц* и *День* — произвольные целые числа, то программа должна напечатать «Wrong date format: *DATE*», где *DATE* — это то, что пользователь ввёл вместо даты (до пробела). Обратите внимание, что части даты разделяются ровно одним дефисом, а сама дата не должна содержать лишних символов ни перед годом, ни после дня. Части даты не могут быть пустыми, но могут быть нулевыми и даже отрицательными.
+
+Если формат даты верен, необходимо проверить валидность месяца и дня.
+
+* Если номер месяца не является числом от 1 до 12, выведите «Month value is invalid: *MONTH*», где *MONTH* — это неверный номер месяца, например, 13 или -1
+* Если месяц корректен, а день не лежит в диапазоне от 1 до 31, выведите «Day value is invalid: *DAY*», где *DAY* — это неверный номер дня в месяце, например, 39 или 0.
+
+Обратите внимание, что:
+
+* Значение года проверять отдельно не нужно.
+* Не нужно проверять календарную корректность даты: количество дней в каждом месяце считается равным 31, високосные года учитывать не нужно.
+* Если неверны как месяц, так и день, то нужно вывести одно сообщение об ошибке в месяце.
+
+После любой ошибки ввода и печати сообщения программа должна завершать своё выполнение.
+
+##### Примеры: #####
+
+* 1-1-1 — корректная дата;
+* -1-1-1 — корректная дата (год -1, месяц 1, день 1);
+* 1--1-1 — дата в верном формате, но с некорректным месяцем -1;
+* 1---1-1 — дата в неверном формате: месяц не может начинаться с двух дефисов.
+
+После обработки любой из описанных ошибок ввода и печати сообщения программа должна завершать своё выполнение.
+
+Какие ошибки ввода ***не нужно*** обрабатывать
+
+Мы не ставим своей целью сломать вашу программу всеми возможными способами, поэтому, за исключением описанного в предыдущем пункте, вы можете полагаться на корректность ввода. В частности, мы гарантируем, что:
+
+* Каждая команда занимает целиком ровно одну строку, хотя во вводе могут быть и пустые строки (их нужно игнорировать).
+* События всегда содержат указанное количество аргументов: после команды Add всегда следуют дата и событие, после команды Find всегда следует дата, после команды Del всегда следует дата и, возможно, событие, а команда Print не содержит дополнительной информации.
+* Все команды, даты и события являются непустыми строками и не содержат пробелов и прочих пробельных символов. (В частности, наши тесты не содержат команды «Add 2018-02-12», потому что в ней после даты отсутствует название события.) С другой стороны, команда Del может не содержать события после даты: в этом случае нужно удалить все события за указанную дату (см. раздел «Удаление нескольких событий»).
+* Несмотря на то, что дата с отрицательным значением года считается корректной, тесты устроены так, что её не понадобится выводить в команде Print.
+
+##### Примеры #####
+
+Корректный ввод: 
+
+```objectivec
+Add 0-1-2 event1
+Add 1-2-3 event2
+Find 0-1-2
+
+Del 0-1-2
+Print
+Del 1-2-3 event2
+Del 1-2-3 event2
+```
+Вывод:
+
+```objectivec
+event1
+Deleted 1 events
+0001-02-03 event2
+Deleted successfully
+Event not found
+```
+Неверный формат даты:
+
+```objectivec
+Add 0-13-32 event1
+```
+Вывод:
+
+```objectivec
+Month value is invalid: 13
 ```
 
-To add your introduction, copy our template and click the edit pencil icon at the top right hand corner of the `index.html` file.
+##### Шаблон решения #####
+Программа должна быть интерактивной и ожидать ввод до тех пор, пока в поток не попадёт символ конца ввода (эта часть уже реализована в шаблоне решения, которое приложено к этому условию).
 
-<img width="997" alt="edit-this-file" src="https://user-images.githubusercontent.com/18093541/63131820-0794d880-bf8d-11e9-8b3d-c096355e9389.png">
+Допишите в этот шаблон недостающие части решения и отправьте его на проверку:
 
+[project_template.cpp](https://github.com/Hitoku/basics-of-c-plus-plus-development-white-belt/blob/master/Week_5/01%20Programming%20Assignment/Source/project_template.cpp)
 
-Delete this placeholder line:
-
+##### Примечания #####
+###### Преобразование числа к строке ######
+Чтобы, имея число *MONTH*, составить строку *«Month value is invalid: MONTH»*, можно использовать функцию *to_string*, преобразующую число к строке. Таким образом, составить необходимую строку можно следующим образом:
+```objectivec
+string error = "Month value is invalid: " + to_string(month);
 ```
-<p>Welcome to your first GitHub Pages website!</p>
+###### Поиск в константном словаре ######
+При реализации данного шаблона вам может понадобится использовать поиск с помощью квадратных скобок для словаря, переданного в функцию по константной ссылке. Как было показано ранее, это сделать не удастся, так как обращение к несуществующему ключу с помощью квадратных скобок добавит его в словарь, что недопустимо для константного словаря.
+
+В этом случае вместо квадратных скобок используйте метод at: в случае отсутствия ключа он выбросит исключение и потому может быть использован для константного объекта.
+
+Например, вместо кода
+
+```objectivec
+void DoSomething(const map<int, int>& m) {
+  // ...
+  if (m.count(key) > 0) {
+    value = m[key];  // не компилируется
+  }
+  // ...
+}
 ```
 
-Then, paste the template to line 15 and fill in the blanks.
+используйте код
 
-<img width="1032" alt="edit-githuboctocat-index" src="https://user-images.githubusercontent.com/18093541/63132339-c3a2d300-bf8e-11e9-8222-59c2702f6c42.png">
+```objectivec
+void DoSomething(const map<int, int>& m) {
+  // ...
+  if (m.count(key) > 0) {
+    value = m.at(key);  // теперь всё хорошо
+  }
+  // ...
+}
+```
 
-
-When you’re done, scroll down to the `Commit changes` section near the bottom of the edit page. Add a short message explaining your change, like "Add my introduction", then click `Commit changes`.
-
-
-<img width="1030" alt="add-my-username" src="https://user-images.githubusercontent.com/18093541/63131801-efbd5480-bf8c-11e9-9806-89273f027d16.png">
-
-Once you click `Commit changes`, your changes will automatically be published on your GitHub Pages website. Refresh the page to see your new changes live in action.
-
-:tada: You just made your first commit! :tada:
-
-## Work with GitHub on your computer using GitHub Desktop
-
-**GitHub Desktop** is a free app from GitHub for Windows and Mac that allows you to easily work with your GitHub repositories from your computer. You just saw how you can commit to a repository from GitHub.com, but most developers do the majority of their work from their computer (locally) before pushing it up to GitHub. So let’s try that out!
-
-[Download GitHub Desktop](https://desktop.github.com/)
-
-## Practice: Use GitHub Desktop and an editor to make a change from your computer
-
-Start by downloading GitHub Desktop if you haven’t already done so, and install it on your computer. Go through the GitHub Desktop onboarding steps, and when you get to the “Let’s get started” screen, go ahead and choose the repository you were just working with on GitHub.com, and click “Clone.”
-
-### Using an editor to make changes
-
-Let’s make sure you have a text editor on your computer - this is what you'll use to actually make changes to your files. If you already know you have an editor, then skip to the next step. Otherwise, download and install either [Visual Studio Code](https://code.visualstudio.com/) or [Atom](https://atom.io/) and restart GitHub Desktop before proceeding to the next step.
-
-Let’s make a change to your GitHub Pages site, just like you did on GitHub.com, except this time we’re going to do it all from your computer. From GitHub Desktop, click the “Open in…” button in the middle of the screen to “open the repository in your external editor” that you just downloaded. 
-
-![Open-in-editor](https://user-images.githubusercontent.com/721500/63188833-82fb9600-c030-11e9-8777-a67c1713d59f.png)
-
-In the left sidebar, click the `index.html` file to open it, and go ahead and add another line. Maybe, “Building websites is fun! You should try it too!” or whatever you want to add. 
-
-![Make-changes](https://user-images.githubusercontent.com/721500/63188832-82fb9600-c030-11e9-9f7b-7d15385a16f0.png)
-
-Now switch back to GitHub Desktop, and you should see the change you made.
-
-![View-changes](https://user-images.githubusercontent.com/721500/63188835-82fb9600-c030-11e9-8980-43a8231ca23a.png)
-
-### Commit your changes
-
-Now you can commit your changes by typing a message in the `Summary` box at the bottom left, and then click the blue `Commit` button below that.
-
-![Commit-changes](https://user-images.githubusercontent.com/721500/63188831-8262ff80-c030-11e9-809a-f87d8b544935.png)
-
-### Push your changes to GitHub.com
-
-One of the great things about working on things on your computer is that you get to control when other people see them. Now let’s push your commit to GitHub.com as well so it’s saved there and you can publish it to your site. Click the “Push origin” button to push your commit to GitHub.com. 
-
-![Push-to-GitHub](https://user-images.githubusercontent.com/721500/63188834-82fb9600-c030-11e9-9d8e-6c6ed6d48504.png)
-
-Now click the “View on GitHub” button to get back to your repository’s page on GitHub.com.
-
-![View-on-GitHub](https://user-images.githubusercontent.com/721500/63188836-82fb9600-c030-11e9-9bc5-cf304398500d.png)
-
-### Deploy and see your changes live on your GitHub Pages website!
-
-Once you commit your changes, they are automatically published on your GitHub Pages website. Refresh your browser to see it live!
-
-### Celebrate!
-
-Hooray! Now you have your repository linked between your computer and GitHub.com. In the future, you can use GitHub Desktop to push any changes you decide to make from your computer.
-
-## Extra Credit: Keep on building!
-
-Change the placeholder Octocat gif on your GitHub Pages website by [creating your own personal Octocat emoji](https://myoctocat.com/build-your-octocat/) or [choose a different Octocat gif from our logo library here](https://octodex.github.com/). Add that image to line 12 of your `index.html` file, in place of the `<img src=` link.
-
-Want to add even more code and fun styles to your GitHub Pages website? [Follow these instructions](https://github.com/github/personal-website) to build a fully-fledged static website.
-
-![octocat](./images/create-octocat.png)
-
-## Everything you need to know about GitHub
-
-Getting started is the hardest part. If there’s anything you’d like to know as you get started with GitHub, try searching [GitHub Help](https://help.github.com). Our documentation has tutorials on everything from changing your repository settings to configuring GitHub from your command line.
+###### Непойманные исключения ######
+Так как для решения задачи требуется программа, работающая верно на большом количестве разных входных данных, то неизбежно в ней могут обнаружиться ошибки, про некоторые из которых мы не рассказали в нашем курсе лекций. Одной из таких ошибок может быть не пойманное исключение: ошибка заключается в том, что исключение, будучи выброшенным, не попадает ни под одно из выражений блоков catch вплоть до функции main. В этом случае программа тут же завершится аварийно, и в качестве ошибки в тесте вы увидите *«Unknown signal 6»*.
