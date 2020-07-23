@@ -1,4 +1,4 @@
-#include <string>
+ï»¿#include <string>
 #include <map>
 #include <vector>
 #include <iostream>
@@ -8,10 +8,10 @@
 #include <fstream>
 
 
-// „Q„u„p„|„y„x„…„z„„„u „†„…„~„{„ˆ„y„y „y „}„u„„„€„t„ „{„|„p„ƒ„ƒ„€„r „y „„‚„y „~„u„€„q„‡„€„t„y„}„€„ƒ„„„y „t„€„q„p„r„„„„u „ƒ„r„€„y
+// Ğ ĞµĞ°Ğ»Ğ¸Ğ·ÑƒĞ¹Ñ‚Ğµ Ñ„ÑƒĞ½ĞºÑ†Ğ¸Ğ¸ Ğ¸ Ğ¼ĞµÑ‚Ğ¾Ğ´Ñ‹ ĞºĞ»Ğ°ÑÑĞ¾Ğ² Ğ¸ Ğ¿Ñ€Ğ¸ Ğ½ĞµĞ¾Ğ±Ñ…Ğ¾Ğ´Ğ¸Ğ¼Ğ¾ÑÑ‚Ğ¸ Ğ´Ğ¾Ğ±Ğ°Ğ²ÑŒÑ‚Ğµ ÑĞ²Ğ¾Ğ¸
 
 
-// „N„p„Š „€„ƒ„~„€„r„~„€„z „{„|„p„ƒ„ƒ - Date
+// ĞĞ°Ñˆ Ğ¾ÑĞ½Ğ¾Ğ²Ğ½Ğ¾Ğ¹ ĞºĞ»Ğ°ÑÑ - Date
 
 class Date {
 public:
@@ -52,7 +52,7 @@ private:
     int Day;
 };
 
-// „P„u„‚„u„s„‚„…„x„{„p „€„„u„‚„p„„„€„‚„€„r „t„|„‘ „~„p„Š„u„s„€ „{„|„p„ƒ„p Date
+// ĞŸĞµÑ€ĞµĞ³Ñ€ÑƒĞ·ĞºĞ° Ğ¾Ğ¿ĞµÑ€Ğ°Ñ‚Ğ¾Ñ€Ğ¾Ğ² Ğ´Ğ»Ñ Ğ½Ğ°ÑˆĞµĞ³Ğ¾ ĞºĞ»Ğ°ÑĞ° Date
 
 bool operator==(const Date& lhs, const Date& rhs) {
     if (lhs.GetDay() == rhs.GetDay() && lhs.GetMonth() == rhs.GetMonth() && lhs.GetYear() == rhs.GetYear()) { return true; }
@@ -111,7 +111,7 @@ std::istream& operator>>(std::istream& stream, Date& date) {
     return stream;
 }
 
-// „Q„u„p„|„y„x„p„ˆ„y„‘ „q„p„x„ „t„p„~„~„„‡
+// Ğ ĞµĞ°Ğ»Ğ¸Ğ·Ğ°Ñ†Ğ¸Ñ Ğ±Ğ°Ğ·Ñ‹ Ğ´Ğ°Ğ½Ğ½Ñ‹Ñ…
 
 class Database {
 public:
@@ -186,7 +186,7 @@ int main() {
         std::string command;
 
         while (std::getline(std::cin, command)) {
-            // „R„‰„y„„„p„z„„„u „{„€„}„p„~„t„ „ƒ „„€„„„€„{„p „r„r„€„t„p „y „€„q„‚„p„q„€„„„p„z„„„u „{„p„w„t„…„
+            // Ğ¡Ñ‡Ğ¸Ñ‚Ğ°Ğ¹Ñ‚Ğµ ĞºĞ¾Ğ¼Ğ°Ğ½Ğ´Ñ‹ Ñ Ğ¿Ğ¾Ñ‚Ğ¾ĞºĞ° Ğ²Ğ²Ğ¾Ğ´Ğ° Ğ¸ Ğ¾Ğ±Ñ€Ğ°Ğ±Ğ¾Ñ‚Ğ°Ğ¹Ñ‚Ğµ ĞºĞ°Ğ¶Ğ´ÑƒÑ
 
             std::stringstream str_stream_cmd(command);
             std::string operation;
